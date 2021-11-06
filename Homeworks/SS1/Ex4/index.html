@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="root">
+        <div class="App">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 mt-4">
+
+                            <div class="input-group">
+                                <input class="input form-control" placeholder="Enter new todo" value="">
+                                <button class="btnAdd btn btn-primary">Add</button>
+                            </div>
+
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <!--  -->
+                        <h5 class="status">There is 1 task to complete</h5>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-12">
+                        <ul class="listGroup list-group">
+                            <!--  -->
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input class="checkBox form-check-input me-2" type="checkbox" checked="true">
+                                    <span class="">Learn react</span>
+                                </div>
+                                <button class="btnDelete btn btn-danger btn-sm">Delete</button>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./app.js"></script>
+</body>
+
+</html>

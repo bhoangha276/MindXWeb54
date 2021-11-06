@@ -1,0 +1,5 @@
+[
+    { username: 'ha', password: '123'},
+    { username: 'hoang', password: '123'},
+    { username: 'phuong', password: '123'},
+]
