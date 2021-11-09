@@ -1,27 +1,8 @@
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
+const PostRouter = require('./modules/post');
+const CommentRouter = require('./modules/comment');
 
-const PostSchema = new mongoose.Schema({
-    imageUrl: {
-        type: String, 
-        required: true
-    },
-    title: {
-        type: String, 
-        required: true
-    },
-    description: String,
-    likeCount: {
-        type: Number,
-        default: 0
-    },
-    createdBy: String,
-},
-{
-    timestamps: true
-});
-
-const PostModel = mongoose.model('Post', PostSchema);
 
 async function main() { 
     await mongoose.connect('mongodb://localhost:27017/mindx-demo');
@@ -31,118 +12,121 @@ async function main() {
 
     app.use(express.json());
 
-    app.get('/api/posts', async (req, res) => {
-        try {
-            const posts = await PostModel.find();
-            res.send({
-                success: 1,
-                data: posts
-            })
-        }
-        catch(err) {
-            res
-            .status(400)
-            .send({ 
-                success: 0, 
-                data: null, 
-                messgae: err.messgae || 'Something went wrong'
-            })
-        }
-    })
+    app.use('/api/posts', PostRouter);
+    app.use('/api/comments', CommentRouter); 
 
-    app.get('/api/posts/:postId', async (req, res) => {
-        try {
-            const { postId } = req.params;
+    // app.get('/api/comments', async (req, res) => {
+    //     try {
+    //         const comments = await CommentModel.find();
+    //         res.send({
+    //             success: 1,
+    //             data: comments
+    //         })
+    //     }
+    //     catch(err) {
+    //         res
+    //         .status(400)
+    //         .send({ 
+    //             success: 0, 
+    //             data: null, 
+    //             messgae: err.messgae || 'Something went wrong'
+    //         })
+    //     }
+    // })
 
-            const foundPost = await PostModel.findById(postId);
-            res.send({
-                success: 1,
-                data: foundPost
-            })
-        }
-        catch(err) {
-            res
-            .status(400)
-            .send({ 
-                success: 0, 
-                data: null, 
-                messgae: err.messgae || 'Something went wrong'
-            })
-        }
-    })
+    //api/comments...
+    //routing
+    // app.get('/api/posts', async (req, res) => {
+    //     try {
+    //         const posts = await PostModel.find();
+    //         res.send({
+    //             success: 1,
+    //             data: posts
+    //         })
+    //     }
+    //     catch(err) {
+    //         res
+    //         .status(400)
+    //         .send({ 
+    //             success: 0, 
+    //             data: null, 
+    //             messgae: err.messgae || 'Something went wrong'
+    //         })
+    //     }
+    // })
 
-    app.post('/api/posts', async (req, res) => {
-        try {
-            const createPostData = req.body;
+    // app.get('/api/posts/:postId', async (req, res) => {
+    //     try {
+    //         const { postId } = req.params;
 
-            const newPost = await PostModel.create(createPostData);
-            res.send({
-                success: 1,
-                data: newPost
-            })
-        }
-        catch(err) {
-            res
-            .status(400)
-            .send({ 
-                success: 0, 
-                data: null, 
-                messgae: err.messgae || 'Something went wrong'
-            })
-        }
-    })
+    //         const foundPost = await PostModel.findById(postId);
+    //         res.send({
+    //             success: 1,
+    //             data: foundPost
+    //         })
+    //     }
+    //     catch(err) {
+    //         res
+    //         .status(400)
+    //         .send({ 
+    //             success: 0, 
+    //             data: null, 
+    //             messgae: err.messgae || 'Something went wrong'
+    //         })
+    //     }
+    // })
 
-    app.put('/api/posts/:postId', async (req, res) => {
-        try {
-            const { postId } = req.params;
+    // app.put('/api/posts/:postId', async (req, res) => {
+    //     try {
+    //         const { postId } = req.params;
 
-            const updatePostData = req.body;
+    //         const updatePostData = req.body;
 
-            // option { new:true } để kết quả trả về là document đã được update
-            const updatePost = await PostModel.findByIdAndUpdate(postId, updatePostData, { new: true });
-            res.send({
-                success: 1,
-                data: updatePost
-            })
-        }
-        catch(err) {
-            res
-            .status(400)
-            .send({ 
-                success: 0, 
-                data: null, 
-                messgae: err.messgae || 'Something went wrong'
-            })
-        }
-    })
+    //         // option { new:true } để kết quả trả về là document đã được update
+    //         const updatePost = await PostModel.findByIdAndUpdate(postId, updatePostData, { new: true });
+    //         res.send({
+    //             success: 1,
+    //             data: updatePost
+    //         })
+    //     }
+    //     catch(err) {
+    //         res
+    //         .status(400)
+    //         .send({ 
+    //             success: 0, 
+    //             data: null, 
+    //             messgae: err.messgae || 'Something went wrong'
+    //         })
+    //     }
+    // })
     
-    app.put('/api/posts/:postId/like', (req, res) => {
-        // Yêu cầu: Người dùng gửi like lên => tăng like count
-        // $inc trong mongodb
-    })
+    // app.put('/api/posts/:postId/like', (req, res) => {
+    //     // Yêu cầu: Người dùng gửi like lên => tăng like count
+    //     // $inc trong mongodb
+    // })
 
-    app.delete('/api/posts/:postId', async (req, res) => {
-        try {
-            const { postId } = req.params;
-            const deletePost = await PostModel.findByIdAndDelete(postId);
+    // app.delete('/api/posts/:postId', async (req, res) => {
+    //     try {
+    //         const { postId } = req.params;
+    //         const deletePost = await PostModel.findByIdAndDelete(postId);
 
-            res.send({
-                success: 1,
-                data: deletePost
-            })
-        }
-        catch(err) {
-            res
-            .status(400)
-            .send({ 
-                success: 0, 
-                data: null, 
-                messgae: err.messgae || 'Something went wrong'
-            })
-        }
-    })
+    //         res.send({
+    //             success: 1,
+    //             data: deletePost
+    //         })
+    //     }
+    //     catch(err) {
+    //         res
+    //         .status(400)
+    //         .send({ 
+    //             success: 0, 
+    //             data: null, 
+    //             messgae: err.messgae || 'Something went wrong'
+    //         })
+    //     }
+    // })
 
-    app.listen(8080, (err) => {
+    app.listen(9000, (err) => {
         if(err) throw err;
 
         console.log('Server connected');
