@@ -1,0 +1,22 @@
+.Tags {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.Tags .tag-item{
+    background-color: beige;
+
+    border: solid 1px;
+    margin: 10px;
+    padding: 3px;
+
+    cursor: pointer;
+}
+
+.Tags .tag-item.active{
+    background-color: #df9815;
+
+}

@@ -1,7 +1,8 @@
 import { Component } from 'react';
-import Header from './components/Header'
-import ColorPicker from './components/ColorPicker/'
-import QuoteBox from './components/QuoteBox'
+import Header from './components/Header';
+import ColorPicker from './components/ColorPicker/';
+import QuoteBox from './components/QuoteBox';
+import Tags from './components/Tags';
 import './App.css'
 
 const colors = [
@@ -13,12 +14,14 @@ const colors = [
   "red",
 ]
 
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-        activeColor: colors[0]
+        activeColor: colors[0],
     }
 }
 
@@ -47,6 +50,12 @@ handleActiveColor = (newColor) => {
             activeColor={activeColor}
             handleActiveColor={this.handleActiveColor}
             />
+        </div>
+
+        <div className="Tags-box">
+          <Tags
+
+          />
         </div>
       </div>
     );
